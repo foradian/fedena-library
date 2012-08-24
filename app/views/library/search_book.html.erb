@@ -1,0 +1,38 @@
+<div id="content-header">
+  <%= image_tag("/images/library/library_small.png") %>
+  <h1><%= "#{t('library_text')}"%></h1>
+  <h3><%= "#{t('book_search')}"%></h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+    <li><%= link_to "#{t('detail_search_text')}", :action=>'detail_search' %> </li>
+  </ul>
+</div>
+<div id="page-yield">
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+  <% unless flash[:warn_notice].nil? %>
+    <div id="errorExplanation" class="errorExplanation"><span><%= flash[:warn_notice] %> </span></div>
+  <% end %>
+  <div class="search_form">
+    <% form_for :search, :url=>{:controller=>'library', :action=>'search_result'} do |f| %>
+      <div class="label-field-pair">
+        <label for="search"><%= "#{t('search_text')}"%> </label>
+        <div class="text-input-bg">
+          <%= f.text_field :name %>
+        </div>
+      </div>
+      <div class="label-field-pair">
+        <label for="search_by"><%= "#{t('search_by')}"%></label>
+        <div class="text-input-bg">
+          <%= f.select :search_by,   [["#{t('book_number')}",'Book Number'],["#{t('title')}",'title'], ["#{t('tag')}",'tag'], ["#{t('author')}",'author']] %>
+        </div>
+      </div>
+      <%= f.submit "#{t('search_text')}",  :class => "submit_button"  %>
+    <% end %>
+  </div>
+</div>

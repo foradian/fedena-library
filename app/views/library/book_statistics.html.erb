@@ -1,0 +1,7 @@
+<% @books.each do |b| %>
+  <%= b.book_number %>
+  <%= link_to b.title, :controller=>'books', :action=>'show', :id=>b.id %>
+  <%= b.author %>
+  <%= b.status %>
+<br/>
+<% end %>

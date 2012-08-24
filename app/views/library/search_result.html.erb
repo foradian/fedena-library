@@ -1,0 +1,48 @@
+
+<div id="content-header">
+  <%= image_tag("/images/library/library_small.png") %>
+  <h1><%= "#{t('library_text')}"%></h1>
+  <h3><%= "#{t('book_search_result')}"%></h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+
+<div id="page-yield">
+
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg"> <%= flash[:notice] %> </p>
+  <% end %>
+  <% unless flash[:warn_notice].nil? %>
+    <div id="errorExplanation" class="errorExplanation">
+      <h2>
+        <%= flash[:warn_notice] %>
+      </h2>
+    </div>
+  <% end %>
+  <% unless @books.empty? %>
+    <table  id="listing" align="center" width="100%" cellpadding="1" cellspacing="1">
+      <tr class="tr-head">
+        <td><%= "#{t('book_number')}"%></td>
+        <td><%= "#{t('book_title')}"%></td>
+        <td><%= "#{t('author')}"%></td>
+
+        <td><%= "#{t('status')}"%></td>
+      </tr>
+      <tr class="tr-blank"></tr>
+      <% @books.each do |b| %>
+        <tr class="tr-<%= cycle('odd', 'even') %>">
+          <td class="col-2"><%= b.book_number %></td>
+          <td class="col-2"><%= link_to b.title, b%></td>
+          <td class="col-2"><%= b.author %></td>
+
+          <td class="col-2"><%= t("#{b.status.downcase}") %></td>
+        </tr>
+        <div id="availability-<%= b.id  %>"></div>
+      <% end  %>
+    </table>
+
+  <% else %>
+    <%= "#{t('try_again')}"%>
+  <% end %>
+</div>

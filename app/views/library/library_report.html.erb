@@ -1,0 +1,46 @@
+<div id="content-header">
+  <%= image_tag("/images/library/library_small.png") %>
+  <h1><%= "#{t('finance_transactions')}"%></h1>
+  <h3><%= "#{t('fees_report')}"%></h3>
+  <div id="app-back-button">
+    <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul>
+    <li><%= link_to t('pdf_report'),:action=>"library_report_pdf",:start => @start_date,:end => @end_date %></li>
+  </ul>
+</div>
+<div id="page-yield">
+  <% total =0 %>
+
+  <b id="fee-report-title"><%= "#{t('library_transaction_report')}"%>  </b>
+  <div id="fees-table">
+    <div class="fees-th">
+      <div class="fees-table-description"><%= "#{t('description')}"%></div>
+      <div class="fees-table-expenses"><%= "#{t('amount')}"%></div>
+    </div>
+    <% @batch.each do |b| %>
+      <% amount = 0 %>
+      <% @transactions.each do |t| %>
+        <% s = t.student_payee %>
+        <% if s.batch_id == b.id %>
+          <% amount+=t.amount %>
+        <% end %>
+      <% end %>
+      <% unless amount == 0 %>
+        <div class="fees-tr">
+          <div class="fees-table-description"><%= link_to b.full_name, :action => 'batch_library_report',:id =>b.id,:start => @start_date,:end => @end_date %></div>
+          <div class="fees-table-income"> <%= amount %> </div>
+        </div>
+        <% total += amount %>
+      <% end %>
+    <% end %>
+    <br/>
+    <div class="fees-th">
+      <div class="fees-table-description"><%= "#{t('total_fees')}"%> </div>
+      <div class="fees-table-expenses"><%= total %></div>
+    </div>
+
+  </div>
+</div>

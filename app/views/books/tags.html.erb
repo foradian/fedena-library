@@ -1,0 +1,22 @@
+<h1><%= "#{t('listing_items')}"%></h1>
+
+<table>
+  <tr>
+    <th><%= "#{t('title')}"%></th>
+    <th><%= "#{t('author')}"%></th>
+    <th><%= "#{t('tags_text')}"%></th>
+  </tr>
+
+  <% for book in @book %>
+    <tr>
+      <td><%=h t("#{book.title}") %></td>
+      <td><%=h t("#{book.author}") %></td>
+      <td><%=h t("#{book.tag_list}") %></td>
+      <td><%= link_to "#{t('view')}", book %></td>
+      <td><%= link_to "#{t('edit_text')}", edit_book_path(book) %></td>
+      <td><%= link_to "#{t('delete_text')}", book, :confirm => "#{t('delete_confirm_msg')}", :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "#{t('search_text')}", :controller=>'books', :action=>'search_book' %>
+<div id="search"></div>

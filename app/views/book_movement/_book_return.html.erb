@@ -1,0 +1,20 @@
+  <div class="name"><%= "#{t('book_number')}"%></div><div class="val"><span>:</span><%= @book.book_number %></div>
+  <div class="name"><%= "#{t('book_holder')}"%></div><div class="val"><span>:</span><%= @book_detail.user.full_name %></div>
+  <div class="name"><%= "#{t('book_issue_date')}"%></div><div class="val"><span>:</span><%= @book_detail.issue_date %></div>
+  <div class="name"><%= "#{t('book_due_date')}"%></div><div class="val"><span>:</span><%= @book_detail.due_date %></div>
+  <div class="extender"></div>
+  <br/>
+  <% remote_form_for :return, :url=>{:action=>'update_return', :id=>@book_detail.id} do |f| %>
+    <% if Date.today <= @book_detail.due_date %>
+      <span class="exceeded"><%= "#{t('due_date_has_been_exceeded')}"%>:</span>
+      <div class="label-field-pair">
+        <label for="book number"><%= "#{t('enter_fine_amount')}"%></label>
+        <div class="text-input-bg">
+          <%= f.text_field :fine %>
+        </div>
+      </div>
+    <% end %>
+    <%= f.submit "#{t('return')}", :class=>'return_button' %>
+  <% end %>
+<% else %>
+<% end %>

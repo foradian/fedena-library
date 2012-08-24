@@ -1,0 +1,27 @@
+
+<% form_remote_for :library_card_setting, :url=>{:action =>'create_setting'} do |f| %>
+  <div id="form-errors"></div>
+  <div class="label-field-pair">
+    <label><%= "#{t('course_text')}"%></label>
+    <div class="input-field">
+      <%= text_field :course, :name, :value => @course.course_name, :disabled=>true %>
+      <%= f.hidden_field :course_id, :value => @course.id %>
+    </div>
+  </div>
+  <div class="label-field-pair">
+    <label><%= "#{t('category')}"%></label>
+    <div class="input-field"><%= f.select :student_category_id, @student_categories.map {|c| [c.name, c.id]}, { :prompt => "#{t('select_category')}" } %>
+    </div>
+  </div>
+  <div class="label-field-pair">
+    <label><%= "#{t('books_issuable')}"%></label>
+    <div class="input-field"><%= f.text_field :books_issueable %>
+    </div>
+  </div>
+  <div class="label-field-pair">
+    <label><%= "#{t('time_period')}"%></label>
+    <div class="input-field"><%= f.text_field :time_period, :value=>'30' %><%= t('days_text') %>
+    </div>
+  </div>
+  <%= f.submit "#{t('submit')}", :class => 'submit_button'  %>
+<% end %>

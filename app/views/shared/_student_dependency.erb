@@ -1,0 +1,15 @@
+<p>Following books to be returned by this student.</p>
+<ul id="category-list">
+  <li class="listheading">
+    <div class="heading-no">Book Number</div>
+    <div class="category-name">Book Name</div>
+  </li>
+  
+  <% @student.issued_books.each do |move| %>
+    <li class="list<%=cycle('odd', 'even')%>">
+      <% book = move.book  %>
+      <div class="category-number"><%= book.book_number %></div>
+      <div class="category-name"><%= book.title %></div>
+    </li>
+  <% end %>
+</ul>

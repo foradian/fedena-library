@@ -1,0 +1,44 @@
+<table id="listing" align="center" width="100%" cellpadding="1" cellspacing="1">
+  <tr class="tr-head">
+
+        <td>
+          <%= "#{t('book_number')}"%>
+        </td>
+        <td>
+          <%= "#{t('title')}"%>
+        </td>
+        <td>
+          <%= "#{t('author')}"%>
+        </td>
+        <td>
+          <%= "#{t('tags_text')}"%>
+        </td>
+        <td>
+          <%= "#{t('status')}"%>
+        </td>
+        <td>
+
+        </td>
+      </tr>
+      <tr class="tr-blank"></tr>
+      <% for book in @books %>
+        <tr class="tr-<%= cycle('odd', 'even') %>">
+          <td class="col-3"><%=h book.book_number %></td>
+          <td class="col-7"><%=h book.title %></td>
+          <td class="col-7"><%=h book.author %></td>
+          <td class="col-7"><%=h book.tag_list %></td>
+          <td class="col-1"><%=h t("#{book.status.downcase}") %></td>
+          <td class="col-3">
+            <small>
+              <%= link_to "#{t('view')}", book %>
+              <% if permitted_to? :edit, :books %>
+                | <%= link_to "#{t('edit_text')}", edit_book_path(book) %>
+              <% end %>
+              <% if permitted_to? :destroy, :books %>
+                | <%= link_to "#{t('delete_text')}", book, :confirm => "#{t('delete_confirm_msg')}", :method => :delete %>
+              <% end %>
+            </small>
+          </td>
+        </tr>
+      <% end %>
+    </table>

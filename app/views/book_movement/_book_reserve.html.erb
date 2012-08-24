@@ -1,0 +1,22 @@
+ <% unless @reservations.empty? %>
+      <span class="reserved-by-h"><%= "#{t('this_book_has_been_reserved_by')}"%> :</span>
+      <span id="reserved-by">
+
+
+        <% @reservations.each do |r| %>
+
+        <p>
+              <% if permitted_to? :issue_book, :book_movement %>
+                <%= r.user.full_name  if @book.status != 'Available' && @book.status!='Reserved'%>
+                <%= link_to  r.user.full_name, :controller=>'book_movement', :action=>'issue_book', :id=>r.book_id, :user_id=>r.user_id   if @book.status == 'Available' or @book.status == 'Reserved' %>
+              <% else %>
+                <%= r.user.full_name %>
+              <% end %>
+          <span class="reserved-time">
+            &nbsp;&nbsp;<%= "#{t('on_text')}"%>&nbsp;&nbsp;
+            <%= r.reserved_on+5.hour+30.minute %>
+          </span>
+        </p>
+        <% end %>
+      </span>
+    <% end %>

@@ -1,0 +1,16 @@
+<% unless @student_user.nil? %>
+<% @student_user.each_with_index do |u, i| %>
+<div class="user-wrapper">
+<div class="ad-number"><%= u.admission_no %> - </div><div class="fullname"><%= link_to_remote u.full_name.downcase, :url=>{:action=>'update_user', :id=>u.id, :id2=>'student'} %></div>
+<div class="batch-fullname"><%= u.batch.full_name %></div>
+</div>
+<% end %>
+<% end %>
+<% unless @employee_user.nil? %>
+<% @employee_user.each_with_index do |u, i| %>
+<div class="user-wrapper">
+<div class="ad-number"><%=u.employee_number %> - </div><div class="fullname"><%= link_to_remote u.full_name.downcase, :url=>{:action=>'update_user', :id=>u.id, :id2=>'employee'} %></div>
+<div class="batch-fullname"><%= u.employee_department.name %></div>
+</div>
+<% end %>
+<% end %>

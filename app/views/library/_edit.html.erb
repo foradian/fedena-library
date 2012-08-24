@@ -1,0 +1,26 @@
+<% form_remote_for @setting, :url=>{:action =>'update_card_setting', :id=>@setting.id} do |f| %>
+  <div id="form-errors"></div>
+  <div class="label-field-pair">
+    <label><%= "#{t('course_text')}"%></label>
+    <div class="input-field">
+      <%= text_field :course, :name, :value => @course.course_name, :disabled=>true %>
+      <%= f.hidden_field :course_id, :value => @course.id %>
+    </div>
+  </div>
+  <div class="label-field-pair">
+    <label><%= "#{t('category')}"%></label>
+    <div class="input-field"><%= f.select :student_category_id, StudentCategory.all.map {|c| [c.name, c.id]}, { :prompt => 'Select category' } %>
+    </div>
+  </div>
+  <div class="label-field-pair">
+    <label><%= "#{t('books_issuable')}"%></label>
+    <div class="input-field"><%= f.text_field :books_issueable %>
+    </div>
+  </div>
+  <div class="label-field-pair">
+    <label><%= "#{t('time_period')}"%></label>
+    <div class="input-field"><%= f.text_field :time_period %> Days
+    </div>
+  </div>
+  <%= f.submit "#{t('submit')}", :class => 'submit_button'  %>
+<% end %>

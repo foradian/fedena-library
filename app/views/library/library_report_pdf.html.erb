@@ -1,0 +1,42 @@
+<div id="page-yield">
+  <div class="hor_line"></div>
+  <h2><%= t('library_transaction_report') %></h2>
+  <div class="hor_line"></div>
+  <div class="extender"> </div>
+  <div class="report">
+    <div id="pdf-info">
+      <% total =0 %>
+      <table id="pdf-table" width="100%" cellspacing="0">
+        <tr class="table-header"><td class="col-pdf"><%= t('description') %></td><td class="col-pdf"><%= t('amount') %></td></tr>
+        <% i=0 %>
+        <% c='even' %>
+
+        <% @batch.each do |b| %>
+        
+          <% c='even' %>
+          <% amount = 0 %>
+          <% @transactions.each do |t| %>
+            <% s = t.student_payee %>
+            <% if s.batch_id == b.id %>
+              <% amount+=t.amount %>
+            <% end %>
+          <% end %>
+          <% unless amount == 0 %>
+            <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+              
+              <td class="col-pdf"><%= b.full_name %></td>
+              <td class="col-pdf"> <%= amount %></td>
+            </tr>
+            <% total += amount %>
+          <% end %>
+
+        <% end %>
+
+        <tr class="<%= cycle(c,(["odd","even"]-[c]).first) %>">
+          <td class="col-8" colspan="1"><%= t('total_fees') %></td>
+          <td class="col-pdf"><%=total %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
